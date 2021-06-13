@@ -27,7 +27,8 @@ app.use((err: Error, request: Request, response: Response, _next: NextFunction) 
 
     return response.status(500).json({
         status: "Error",
-        message: `Internal server error ${err.message}`
+        message: `Internal server error ${err.message}`,
+        //stack: err.stack // allow debug via stackTrace file
     });
 });
 
