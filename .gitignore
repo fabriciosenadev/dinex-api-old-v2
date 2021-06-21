@@ -123,3 +123,8 @@ dist
 .env
 .env.prod
 .env.dev
+
+# database files to *not* allow upload to repository
+src/database/*.sqlite
+src/database/*.sqlite3
+src/database/*.db
