@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("users")
+@Entity("dx_users")
 class User {
     //#region Props
     @PrimaryColumn()
