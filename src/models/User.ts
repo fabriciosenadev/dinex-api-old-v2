@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Dele
 import { v4 as uuid } from "uuid";
 
 @Entity("dx_users")
-class User {
+export class User {
     //#region Props
     @PrimaryColumn()
     private readonly id: string;
@@ -69,5 +69,3 @@ class User {
     // }
     //#endregion
 }
-
-export { User };

@@ -5,7 +5,7 @@ import { Cryptography } from '../utils/Cryptography';
 import { User } from '../models/User';
 import { UserService } from '../services/UserService';
 
-class UsersController {
+export class UsersController {
     private user: User;
 
     public async create(request: Request, response: Response) {
@@ -25,5 +25,3 @@ class UsersController {
         }
     }
 }
-
-export { UsersController };

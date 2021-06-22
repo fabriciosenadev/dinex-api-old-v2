@@ -1,7 +1,7 @@
 import * as crypto from "crypto-js";
 import { AppError } from "../errors/AppError";
 
-class Cryptography{
+export class Cryptography{
     public static async doEncrypt(string: string) {
         try {
             const encrypted = crypto.AES.encrypt(
@@ -29,5 +29,3 @@ class Cryptography{
         }
     }
 }
-
-export { Cryptography };
