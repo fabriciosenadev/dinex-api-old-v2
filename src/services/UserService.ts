@@ -1,8 +1,8 @@
-import { User } from "../models/User";
 import { getCustomRepository } from "typeorm";
-import { UserRepository } from "../repository/UserRepository";
 import { AppError } from "../errors/AppError";
+import { UserRepository } from "../repository/UserRepository";
 import { CategoryUserService } from "./CategoryUserService";
+import { User } from "../models/User";
 
 export class UserService {
     public static async createAsync(user: User) {
@@ -12,21 +12,19 @@ export class UserService {
         if (hasUser)
             throw new AppError("User already exists!");
 
-        const newUser = userRepository.create({
+        const newUser = await userRepository.create({
             full_name: user.full_name,
             email: user.email,
             password: user.password
         });
-        userRepository.save(newUser);
+        await userRepository.save(newUser);
 
-        //TODO: need to implement association with basic categories
+        UserService.addStandardCategoriesToUser(newUser.id);
 
         return newUser;
     }
 
-    private async addStandardCategoriesToUser(userId : number){
-        let test = CategoryUserService.addStandardCategoriesToUser(userId);
-        console.log(test);
-        
+    private static async addStandardCategoriesToUser(userId: string) {
+        CategoryUserService.addStandardCategoriesToUser(userId);
     }
 }
