@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 export class User {
     //#region Props
     @PrimaryColumn()
-    private readonly id: string;
+    readonly id: string;
 
     @Column()
     full_name: string;
