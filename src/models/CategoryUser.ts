@@ -1,12 +1,12 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
 import { User } from "./User";
 
-@Entity("categories_users")
+@Entity("dx_categories_users")
 export class CategoryUser {
-    @PrimaryColumn()
-    readonly id: string;
+    @PrimaryGeneratedColumn('increment')
+    readonly id: number;
 
     @Column()
     user_id: string;
@@ -30,10 +30,4 @@ export class CategoryUser {
         nullable: true
     })
     deleted_on: Date
-
-    constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
-    }
 }
