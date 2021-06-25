@@ -16,14 +16,10 @@ export class CreateCategoriesUsers1624382443809 implements MigrationInterface {
                     },
                     {
                         name: "user_id",
-                        type: "int"
+                        type: "string"
                     },
                     {
                         name: "category_id",
-                        type: "int"
-                    },
-                    {
-                        name: "created_by",
                         type: "int"
                     },
                     {
@@ -35,6 +31,24 @@ export class CreateCategoriesUsers1624382443809 implements MigrationInterface {
                         name: "deleted_on",
                         type: "timestamp",
                         isNullable: true
+                    }
+                ],
+                foreignKeys:[
+                    {
+                        name:"FKUser",
+                        referencedTableName: "dx_users",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["user_id"],
+                        onUpdate: "CASCADE",
+                        onDelete: "CASCADE"
+                    },
+                    {
+                        name:"FKCategory",
+                        referencedTableName: "dx_categories",
+                        referencedColumnNames: ["id"],
+                        columnNames: ["category_id"],
+                        onUpdate: "CASCADE",
+                        onDelete: "CASCADE" 
                     }
                 ]
             })
