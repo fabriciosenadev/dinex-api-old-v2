@@ -1,5 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
-import { Applicable } from "../../models/enums/Applicable";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateCategories1624245887670 implements MigrationInterface {
 
@@ -10,15 +9,17 @@ export class CreateCategories1624245887670 implements MigrationInterface {
                 columns: [
                     {
                         name: "id",
-                        type: "uuid",
-                        isPrimary: true
+                        type: "integer",
+                        isPrimary: true,
+                        isGenerated: true,
+                        generationStrategy: 'increment'
                     },
                     {
                         name: "category",
                         type: "varchar"
                     },
                     {
-                        name:"applicable",
+                        name: "applicable",
                         type: "int"
                     },
                     {
@@ -36,7 +37,7 @@ export class CreateCategories1624245887670 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("users");
+        await queryRunner.dropTable("dx_categories");
     }
 
 }
