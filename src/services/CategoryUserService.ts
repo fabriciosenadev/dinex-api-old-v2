@@ -17,9 +17,7 @@ export class CategoryUserService {
                 const newCategoryUser = await categoryUserRepository.create({
                     category_id: category.id,
                     user_id: userId,
-                });
-                console.log(newCategoryUser);
-                
+                });                
                 await categoryUserRepository.save(newCategoryUser);
             });
         }

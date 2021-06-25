@@ -4,7 +4,7 @@ import { UserRepository } from "../repository/UserRepository";
 import { CategoryUserService } from "./CategoryUserService";
 import { User } from "../models/User";
 
-export class UserService {
+export class UserService {  
     public static async createAsync(user: User) {
         const userRepository = getCustomRepository(UserRepository);
 
@@ -12,14 +12,10 @@ export class UserService {
         if (hasUser)
             throw new AppError("User already exists!");
 
-        const newUser = await userRepository.create({
-            full_name: user.full_name,
-            email: user.email,
-            password: user.password
-        });
+        const newUser = await userRepository.create(user);
         await userRepository.save(newUser);
 
-        UserService.addStandardCategoriesToUser(newUser.id);
+        this.addStandardCategoriesToUser(newUser.id);        
 
         return newUser;
     }
@@ -28,3 +24,4 @@ export class UserService {
         CategoryUserService.addStandardCategoriesToUser(userId);
     }
 }
+
