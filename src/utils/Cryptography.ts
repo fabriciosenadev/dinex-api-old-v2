@@ -19,7 +19,7 @@ export class Cryptography{
             const decrypted = crypto.AES.decrypt(
                 string.trim(),
                 process.env.PASS_KEY
-            ).toString()
+            ).toString(crypto.enc.Utf8);
 
             return decrypted;
         } catch (error) {
