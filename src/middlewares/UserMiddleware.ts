@@ -7,12 +7,6 @@ import { Cryptography } from "../utils/Cryptography";
 
 export class UserMiddleware {
     public async validateUserData(request: Request, response: Response, _next: NextFunction) {
-        await check('full_name')
-            .exists()
-            .withMessage('Nome completo é obrigatório')
-            .isLength({ min: 10 })
-            .withMessage('Nome muito curto, por favor informe nome completo')
-            .run(request);
 
         await check('email')
             .exists()
@@ -21,24 +15,31 @@ export class UserMiddleware {
             .withMessage('E-mail não é válido')
             .run(request);
 
-        await check(['password', 'verifyPass'])
-            .exists()
-            .withMessage('Senha é obrigatório')
-            .isLength({ min: 6 })
-            .withMessage('Senha deve ter pelo meno 6 caracteres')
-            .run(request);
-
-        await body('verifyPass').custom(async (value, { req }) => {
-            const decryptedVerifyPass = await Cryptography.doDecrypt(value);
-            const decryptedPassword = await Cryptography.doDecrypt(req.body.password);
-            console.log(decryptedPassword, decryptedVerifyPass);
-
-            if (decryptedVerifyPass !== decryptedPassword) {
-                throw new Error('Confirmação de senha é diferente da senha');
-            }
+        await body('password').custom(async (value) => {
+            const decryptedPassword = await Cryptography.doDecrypt(value);
+            if (decryptedPassword.length < 6)
+                throw new Error('Senha deve ter pelo meno 6 caracteres');
 
             return true;
         }).run(request);
+
+        if (!request.originalUrl.includes('login')) {
+            await body('verifyPass').custom(async (value, { req }) => {
+                const decryptedVerifyPass = await Cryptography.doDecrypt(value);
+                const decryptedPassword = await Cryptography.doDecrypt(req.body.password);
+                if (decryptedVerifyPass !== decryptedPassword)
+                    throw new Error('Senha e confirmação devem ser iguais');
+
+                return true;
+            }).run(request);
+
+            await check('full_name')
+                .exists()
+                .withMessage('Nome completo é obrigatório')
+                .isLength({ min: 10 })
+                .withMessage('Nome muito curto, por favor informe nome completo')
+                .run(request);
+        }
 
         const result = validationResult(request);
         if (!result.isEmpty()) {
