@@ -11,12 +11,16 @@ const userRoutes = Router();
 
 userRoutes.post(
     '/',
-    userMiddleware.validateUserData,
+    userMiddleware.validateNewUser,
     usersController.create
 );
 // userRoutes.get('/:user_id/', usersController.get);
 // userRoutes.put('/:user_id/', usersController.update);
 
-userRoutes.post('/login', usersController.login);
+userRoutes.post(
+    '/login',
+    userMiddleware.validateLogin,
+    usersController.login
+);
 
 export { userRoutes };
