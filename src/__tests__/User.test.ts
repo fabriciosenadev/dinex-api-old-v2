@@ -75,19 +75,45 @@ describe("Users", () => {
         "verifyPass": "U2FsdGVkX189hEIbMbH4toFPs7qtu2BaTeTIG52Umz8="
     };
 
+    //#region create new user test
     it("Should be able to create a new user", async () => {      
         const response = await request(app).post('/user/')
             .send(newUser);      
 
         expect(response.status).toBe(201);
+        expect(response.body.user.id).toBeTruthy();
     });
 
-    it("Should be able to create a new user with exists email", async () => {
+    it("Should not be able to create a new user with exists email", async () => {
         const response = await request(app).post('/user/')
             .send(newUser);
 
         expect(response.status).toBe(400);
+        expect(response.body.error).toBeTruthy();
     });
+    //#endregion
+
+    //#region login test
+    it("Should be able to login in with exists user", async () => {
+        const response = await request(app).post('/user/login/')
+            .send({
+                "email": newUser.email,
+                "password": newUser.password
+            })
+        expect(response.status).toBe(200);
+        expect(response.body.token).toBeTruthy()
+    });
+
+    it("Should not be able to login in with non exists user", async () => {
+        const response = await request(app).post('/user/login/')
+            .send({
+                "email": "user2@example.com",
+                "password": newUser.password
+            })
+        expect(response.status).toBe(401);
+        expect(response.body.error).toBeTruthy();
+    });
+    //#endregion
 });
 
 
