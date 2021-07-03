@@ -24,7 +24,7 @@ export class UsersController {
             return response.json({ token });
         } catch (error) {
             console.log(error);
-            throw new AppError(error);
+            throw new AppError(error, 401);
         }
     }
 }

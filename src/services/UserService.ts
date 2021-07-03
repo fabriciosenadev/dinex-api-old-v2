@@ -26,14 +26,14 @@ export class UserService {
         });
 
         if (!user) {
-            throw new AppError("Usuário não localizado");
+            throw new AppError("Usuário não localizado", 401);
         }
 
         const decryptedPassword = await Cryptography.doDecrypt(user.password);
         const decryptedReceivedPass = await Cryptography.doDecrypt(password);
 
         if (decryptedPassword !== decryptedReceivedPass) {
-            throw new AppError("Usuário ou senha está/ estão incorreto(s)");
+            throw new AppError("Usuário ou senha está/ estão incorreto(s)", 401);
         }
 
         const { id } = user;
