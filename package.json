@@ -10,6 +10,7 @@
   "scripts": {
     "start": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "dev": "NODE_ENV=dev ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "posttest": "rm ./src/database/database.test.db",
     "test": "NODE_ENV=test jest -i",
     "typeorm": "ts-node-dev node_modules/typeorm/cli.js",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
