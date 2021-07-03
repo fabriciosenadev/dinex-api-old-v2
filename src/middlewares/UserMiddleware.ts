@@ -6,7 +6,13 @@ import { UserRepository } from "../repository/UserRepository";
 import { Cryptography } from "../utils/Cryptography";
 
 export class UserMiddleware {
-    public async validateUserData(request: Request, response: Response, _next: NextFunction) {
+    public async validateNewUser(request: Request, response: Response, _next: NextFunction) {
+        await check('full_name')
+            .exists()
+            .withMessage('Nome completo é obrigatório')
+            .isLength({ min: 10 })
+            .withMessage('Nome muito curto, por favor informe nome completo')
+            .run(request);
 
         await check('email')
             .exists()
@@ -23,23 +29,14 @@ export class UserMiddleware {
             return true;
         }).run(request);
 
-        if (!request.originalUrl.includes('login')) {
-            await body('verifyPass').custom(async (value, { req }) => {
-                const decryptedVerifyPass = await Cryptography.doDecrypt(value);
-                const decryptedPassword = await Cryptography.doDecrypt(req.body.password);
-                if (decryptedVerifyPass !== decryptedPassword)
-                    throw new Error('Senha e confirmação devem ser iguais');
+        await body('verifyPass').custom(async (value, { req }) => {
+            const decryptedVerifyPass = await Cryptography.doDecrypt(value);
+            const decryptedPassword = await Cryptography.doDecrypt(req.body.password);
+            if (decryptedVerifyPass !== decryptedPassword)
+                throw new Error('Senha e confirmação devem ser iguais');
 
-                return true;
-            }).run(request);
-
-            await check('full_name')
-                .exists()
-                .withMessage('Nome completo é obrigatório')
-                .isLength({ min: 10 })
-                .withMessage('Nome muito curto, por favor informe nome completo')
-                .run(request);
-        }
+            return true;
+        }).run(request);
 
         const result = validationResult(request);
         if (!result.isEmpty()) {
@@ -54,5 +51,30 @@ export class UserMiddleware {
             throw new AppError("Usuário ja cadastrado!");
 
         _next();
+    }
+
+    public async validateLogin(request: Request, response: Response, _next: NextFunction) {
+        await check('email')
+            .exists()
+            .isEmail()
+            .withMessage('Informe um e-mail válido')
+            .run(request);
+
+        await body('password').custom(async (value) => {
+            const decryptedPassword = await Cryptography.doDecrypt(value);
+            if (decryptedPassword.length < 6)
+                throw new Error('Informe a senha correta');
+
+            return true;
+        }).run(request);
+
+        const result = validationResult(request);
+        if (!result.isEmpty()) {
+            const errors = result.array();
+            const msg = errors[0].msg;
+            throw new AppError(msg);
+        }
+
+        _next();        
     }
 }
