@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { AppError } from "../errors/AppError";
-import { Cryptography } from '../utils/Cryptography';
 import { User } from '../models/User';
 import { UserService } from '../services/UserService';
 
@@ -11,7 +10,7 @@ export class UsersController {
         try {
             this.user = request.body;
             const newUser = await UserService.createAsync(this.user);
-            return response.json({ user: newUser });
+            return response.status(201).json({ user: newUser });
         } catch (error) {
             console.log(error);
             throw new AppError(error);
