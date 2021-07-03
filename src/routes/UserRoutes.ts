@@ -17,4 +17,6 @@ userRoutes.post(
 // userRoutes.get('/:user_id/', usersController.get);
 // userRoutes.put('/:user_id/', usersController.update);
 
+userRoutes.post('/login', usersController.login);
+
 export { userRoutes };
