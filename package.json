@@ -8,8 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "start": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "NODE_ENV=dev ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "NODE_ENV=test jest -i",
     "typeorm": "ts-node-dev node_modules/typeorm/cli.js",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
@@ -24,7 +24,6 @@
     "jest": "^27.0.4",
     "supertest": "^6.1.3",
     "ts-jest": "^27.0.3",
-    "ts-node": "3.3.0",
     "ts-node-dev": "^1.1.6",
     "typeorm-seeding": "^1.6.1",
     "typescript": "3.3.3333"
