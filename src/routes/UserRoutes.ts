@@ -18,7 +18,7 @@ userRoutes.post(
 // userRoutes.put('/:user_id/', usersController.update);
 
 userRoutes.post(
-    '/login',
+    '/login/',
     userMiddleware.validateLogin,
     usersController.login
 );
