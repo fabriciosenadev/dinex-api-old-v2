@@ -6,7 +6,7 @@ export class Category {
     readonly id: number;
 
     @Column()
-    category: string;
+    name: string;
 
     @Column()
     applicable: number;

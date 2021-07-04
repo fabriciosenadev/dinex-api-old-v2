@@ -18,43 +18,43 @@ export default class CreateCategories implements Seeder {
             .into(Category)
             .values([
                 {
-                    category: "Salário",
+                    name: "Salário",
                     applicable: Applicable.In,
                     is_custom: IsCustom.No,
                     created_on: new Date().toISOString()
                 },
                 {
-                    category: "Alimentação",
+                    name: "Alimentação",
                     applicable: Applicable.Out,
                     is_custom: IsCustom.No,
                     created_on: new Date().toISOString()
                 },
                 {
-                    category: "Beleza",
+                    name: "Beleza",
                     applicable: Applicable.Out,
                     is_custom: IsCustom.No,
                     created_on: new Date().toISOString()
                 },
                 {
-                    category: "Educação",
+                    name: "Educação",
                     applicable: Applicable.Out,
                     is_custom: IsCustom.No,
                     created_on: new Date().toISOString()
                 },
                 {
-                    category: "Lazer",
+                    name: "Lazer",
                     applicable: Applicable.Out,
                     is_custom: IsCustom.No,
                     created_on: new Date().toISOString()
                 },
                 {
-                    category: "Saúde",
+                    name: "Saúde",
                     applicable: Applicable.Out,
                     is_custom: IsCustom.No,
                     created_on: new Date().toISOString()
                 },
                 {
-                    category: "Transporte",
+                    name: "Transporte",
                     applicable: Applicable.Out,
                     is_custom: IsCustom.No,
                     created_on: new Date().toISOString()

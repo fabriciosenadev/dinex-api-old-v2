@@ -15,7 +15,7 @@ export class CreateCategories1624245887670 implements MigrationInterface {
                         generationStrategy: 'increment'
                     },
                     {
-                        name: "category",
+                        name: "name",
                         type: "varchar"
                     },
                     {
