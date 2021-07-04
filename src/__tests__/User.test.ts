@@ -17,49 +17,49 @@ describe("Users", () => {
         const categoryRepository = getCustomRepository(CategoryRepository);
 
         const salary = await categoryRepository.create({
-            category: "Salário",
+            name: "Salário",
             applicable: Applicable.In,
             is_custom: IsCustom.No,
         })
         await categoryRepository.save(salary);
     
         const food = await categoryRepository.create({
-            category: "Alimentação",
+            name: "Alimentação",
             applicable: Applicable.Out,
             is_custom: IsCustom.No,
         })
         await categoryRepository.save(food);
     
         const beauty = await categoryRepository.create({
-            category: "Beleza",
+            name: "Beleza",
             applicable: Applicable.Out,
             is_custom: IsCustom.No,
         })
         await categoryRepository.save(beauty);
     
         const education = await categoryRepository.create({
-            category: "Educação",
+            name: "Educação",
             applicable: Applicable.Out,
             is_custom: IsCustom.No,
         })
         await categoryRepository.save(education);
     
         const laser = await categoryRepository.create({
-            category: "Lazer",
+            name: "Lazer",
             applicable: Applicable.Out,
             is_custom: IsCustom.No,
         })
         await categoryRepository.save(laser);
     
         const health = await categoryRepository.create({
-            category: "Saúde",
+            name: "Saúde",
             applicable: Applicable.Out,
             is_custom: IsCustom.No,
         })
         await categoryRepository.save(health);
     
         const transport = await categoryRepository.create({
-            category: "Transporte",
+            name: "Transporte",
             applicable: Applicable.Out,
             is_custom: IsCustom.No,
         })
