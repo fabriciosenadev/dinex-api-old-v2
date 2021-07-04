@@ -22,5 +22,8 @@ userRoutes.post(
     userMiddleware.validateLogin,
     usersController.login
 );
+// userRoutes.post('/forgot_pass/', usersController.forgotPass);
+// userRoutes.post('/reset_pass/', usersController.resetPass);
+// userRoutes.post('/change_pass/', usersController.changePass);
 
 export { userRoutes };
