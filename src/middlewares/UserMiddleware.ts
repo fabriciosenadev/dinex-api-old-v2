@@ -72,7 +72,7 @@ export class UserMiddleware {
         if (!result.isEmpty()) {
             const errors = result.array();
             const msg = errors[0].msg;
-            throw new AppError(msg);
+            throw new AppError(msg, 401);
         }
 
         _next();        
