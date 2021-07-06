@@ -5,6 +5,7 @@ import { User } from "../models/User";
 import { Cryptography } from "../utils/Cryptography";
 import { AppError } from "../errors/AppError";
 import * as jwt from "jsonwebtoken";
+import { WebToken } from "../utils/WebToken";
 
 export class UserService {
     public static async createAsync(user: User) {
@@ -37,7 +38,7 @@ export class UserService {
         }
 
         const { id } = user;
-        return this.generateToken(id);
+        return await WebToken.generate(id);
     }
 
     private static async addStandardCategoriesToUser(userId: string) {
@@ -46,12 +47,6 @@ export class UserService {
 
     private static async userRepository() {
         return getCustomRepository(UserRepository);
-    }
-
-    private static async generateToken(id: string) {
-        return jwt.sign({ id }, process.env.SECRET, {
-            expiresIn: 3600 * 24 // expires in a day
-        });
     }
 }
 
