@@ -1,7 +1,7 @@
 import express from 'express';
 
 //import here all individual routes
-import { testRoutes } from './routes/TestRoutes';
+import { testRoutes } from './routes/_TestRoutes';
 import { userRoutes } from './routes/UserRoutes';
 import { categoryRoutes } from './routes/CategoryRoutes';
 import { authRoutes } from './routes/AuthRoutes';
