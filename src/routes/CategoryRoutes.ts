@@ -15,6 +15,10 @@ categoryRoutes.post(
     categoryMiddleware.validateNewCategory,
     categoriesController.create
 );
-// categoryRoutes.put('/:category_id', categoriesController.delete);
+categoryRoutes.delete(
+    '/:categoryId', 
+    categoryMiddleware.prepareToDelete,
+    categoriesController.delete
+);
 
 export { categoryRoutes };

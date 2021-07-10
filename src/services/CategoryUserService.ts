@@ -1,5 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { AppError } from "../errors/AppError";
+import { CategoryUser } from "../models/CategoryUser";
 import { IsCustom } from "../models/enums/IsCustom";
 import { CategoryRepository } from "../repository/CategoryRepository";
 import { CategoryUserRepository } from "../repository/CategoryUserRepository";
@@ -42,13 +43,19 @@ export class CategoryUserService {
         }
     }
 
-    public static async countCategoryRelationToUser(categoryId: number, userId: string) {
+    public static async findCategoryRelationToUser(categoryId: number, userId: string) {
         const categoryUserRepository = await this.categoryUserRepository();
-        const result = await categoryUserRepository.findAndCount({
+        return await categoryUserRepository.findOne({
             category_id: categoryId,
-            user_id: userId
+            user_id: userId,
+            deleted_on: null
         });
-        return result[1];
+    }
+
+    public static async deleteCategoryRelationToUser(categoryUserRelation: CategoryUser) {
+        const categoryUserRepository = await this.categoryUserRepository();
+        categoryUserRelation.deleted_on = new Date();
+        await categoryUserRepository.save(categoryUserRelation);
     }
 
     private static async categoryUserRepository() {

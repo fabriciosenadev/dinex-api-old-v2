@@ -30,9 +30,12 @@ export class CategoryService {
         return newCategory;
     }
 
-    public static async deleteAsync(category: Category) {
-        //TODO: need to implement delete service
-        throw new AppError("Need to be implemented", 500);
+    public static async deleteAsync(categoryId: number, userId: string) { 
+        const categoryRelation = await CategoryUserService.findCategoryRelationToUser(categoryId, userId);              
+        if (!categoryRelation)
+            throw new AppError("Categoria não existe");       
+
+        await CategoryUserService.deleteCategoryRelationToUser(categoryRelation);
     }
 
     private static async categoryRepository() {
@@ -40,10 +43,9 @@ export class CategoryService {
     }
 
     private static async addCategoryRelationToUser(categoryId: number, userId: string) {
-        const countRelations = await CategoryUserService.countCategoryRelationToUser(categoryId, userId);   
-        if (countRelations !== 0) {
+        const alreadyExists = await CategoryUserService.findCategoryRelationToUser(categoryId, userId);   
+        if (alreadyExists)
             throw new AppError("Categoria ja existe");
-        }
 
         await CategoryUserService.addCategoryRelationToUser(categoryId, userId);
     }

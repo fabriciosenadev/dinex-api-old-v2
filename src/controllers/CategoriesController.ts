@@ -20,9 +20,12 @@ export class CategoriesController {
     }
     public async delete(request: Request, response: Response) {
         try {
-            this.category = request.body;
-            const newCategory = await CategoryService.deleteAsync(this.category);
-            return response.status(201).json({ category: newCategory });
+            const { categoryId } = request.params;
+
+            const { userId } = request.body;
+            
+            await CategoryService.deleteAsync(Number(categoryId), userId);
+            return response.status(200).json();
         } catch (error) {
             console.log(error);
             throw new AppError(error);

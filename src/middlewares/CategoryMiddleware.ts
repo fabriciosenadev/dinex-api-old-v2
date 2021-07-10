@@ -36,4 +36,14 @@ export class CategoryMiddleware {
 
         _next();
     }
+
+    public async prepareToDelete(request: Request, response: Response, _next: NextFunction) {
+        const { authorization } = request.headers;        
+        if (!authorization)
+            throw new AppError("No token provided", 401);
+
+        request.body.userId = await WebToken.decodeToUserId(authorization);
+
+        _next();
+    }
 }
