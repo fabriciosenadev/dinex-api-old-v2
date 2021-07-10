@@ -21,7 +21,7 @@ export class CategoryService {
             await categoryRepository.save(categoryCandidate);
         }
         else {
-            categoryCandidate = alreadyExists;
+            categoryCandidate = alreadyExists[0];
         }
         const newCategory = categoryCandidate;
 
@@ -40,6 +40,11 @@ export class CategoryService {
     }
 
     private static async addCategoryRelationToUser(categoryId: number, userId: string) {
-        CategoryUserService.addCategoryRelationToUser(categoryId, userId);
+        const countRelations = await CategoryUserService.countCategoryRelationToUser(categoryId, userId);   
+        if (countRelations !== 0) {
+            throw new AppError("Categoria ja existe");
+        }
+
+        await CategoryUserService.addCategoryRelationToUser(categoryId, userId);
     }
 }

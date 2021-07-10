@@ -35,13 +35,20 @@ export class CategoryUserService {
                 category_id: categoryId,
                 user_id: userId
             })
-            console.log(newRelation);
-
             await categoryUserRepository.save(newRelation);
         } catch (error) {
             console.log(error);
             throw new AppError("Ocorreu um erro interno: " + error, 500);
         }
+    }
+
+    public static async countCategoryRelationToUser(categoryId: number, userId: string) {
+        const categoryUserRepository = await this.categoryUserRepository();
+        const result = await categoryUserRepository.findAndCount({
+            category_id: categoryId,
+            user_id: userId
+        });
+        return result[1];
     }
 
     private static async categoryUserRepository() {
