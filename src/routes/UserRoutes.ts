@@ -17,11 +17,6 @@ userRoutes.post(
 // userRoutes.get('/:user_id/', usersController.get);
 // userRoutes.put('/:user_id/', usersController.update);
 
-userRoutes.post(
-    '/login/',
-    userMiddleware.validateLogin,
-    usersController.login
-);
 // userRoutes.post('/forgot_pass/', usersController.forgotPass);
 // userRoutes.post('/reset_pass/', usersController.resetPass);
 // userRoutes.post('/change_pass/', usersController.changePass);

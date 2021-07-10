@@ -16,15 +16,4 @@ export class UsersController {
             throw new AppError(error);
         }
     }
-
-    public async login(request: Request, response: Response) {
-        try {
-            const { email, password } = request.body;
-            const token = await UserService.loginAsync(email, password);
-            return response.json({ token });
-        } catch (error) {
-            console.log(error);
-            throw new AppError(error, 401);
-        }
-    }
 }
