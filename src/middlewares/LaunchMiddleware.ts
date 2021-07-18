@@ -3,6 +3,7 @@ import { body, check, validationResult } from "express-validator";
 import moment from "moment";
 import { AppError } from "../errors/AppError";
 import { PayMethod } from "../models/enums/PayMethod";
+import { Status } from "../models/enums/Status";
 import { WebToken } from "../utils/WebToken";
 
 export class LaunchMiddleware {
@@ -30,6 +31,13 @@ export class LaunchMiddleware {
             .isInt({ gt: 0 })
             .withMessage('Categoria não é válida')
             .run(request);
+
+        await body('launch.status').custom(async (value) => {
+            if (value !== Status.Paid && value !== Status.Pending && value !== Status.Received)
+                throw new AppError('Informe o status do lançamento');
+
+            return true;
+        }).run(request);
 
         if (payMethodLaunch !== undefined) {
             await body('payMethodLaunch.pay_method').custom(async (value) => {
