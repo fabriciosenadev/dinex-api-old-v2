@@ -2,8 +2,11 @@ import * as jwt from "jsonwebtoken";
 import { AppError } from "../errors/AppError";
 
 export class WebToken {
-    public static async decodeToUserId(token: any) {
-        await this.verifyAuthorization(token);
+    public static async decodeToUserId(authorization: string) {
+        await this.verifyAuthorization(authorization);
+
+        const [, token] = authorization.split(' ');
+
         return jwt.verify(
             token,
             process.env.SECRET,
