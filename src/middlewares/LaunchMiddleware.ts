@@ -8,9 +8,6 @@ import { WebToken } from "../utils/WebToken";
 export class LaunchMiddleware {
     public async validateNewLaunch(request: Request, response: Response, _next: NextFunction) {
         const { authorization } = request.headers;
-        if (!authorization)
-            throw new AppError("No token provided", 401);
-
         request.body.userId = await WebToken.decodeToUserId(authorization);
 
         const { launch, payMethodLaunch } = request.body;

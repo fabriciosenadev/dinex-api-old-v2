@@ -7,6 +7,9 @@ import { WebToken } from "../utils/WebToken";
 
 export class CategoryMiddleware {
     public async validateNewCategory(request: Request, response: Response, _next: NextFunction) {
+        const { authorization } = request.headers;
+        request.body.userId = await WebToken.decodeToUserId(authorization);
+
         await check('category.name')
             .exists()
             .withMessage('categoria é obrigatória')
@@ -28,20 +31,12 @@ export class CategoryMiddleware {
             throw new AppError(msg);
         }
 
-        const { authorization } = request.headers;
-        if (!authorization)
-            throw new AppError("No token provided", 401);
-
-        request.body.userId = await WebToken.decodeToUserId(authorization);
 
         _next();
     }
 
     public async prepareToDelete(request: Request, response: Response, _next: NextFunction) {
-        const { authorization } = request.headers;        
-        if (!authorization)
-            throw new AppError("No token provided", 401);
-
+        const { authorization } = request.headers;
         request.body.userId = await WebToken.decodeToUserId(authorization);
 
         _next();
