@@ -41,7 +41,7 @@ export const category = () => {
 
     it("Should not be able to create a new category with exists name", async () => {
         const response = await request(app).post('/categories/')
-            .set('Authorization', token)
+            .set('Authorization', `Bearer ${token}`)
             .send({
                 category: newCategory
             });
@@ -51,14 +51,14 @@ export const category = () => {
 
     it("Should be able to delete a category", async () => {
         const response = await request(app).delete(`/categories/${categoryId}`)
-            .set('Authorization', token).send();
+            .set('Authorization', `Bearer ${token}`).send();
 
         expect(response.status).toBe(200);
     });
 
     it("Should not be able to delete same category", async () => {
         const response = await request(app).delete(`/categories/${categoryId}`)
-            .set('Authorization', token).send()
+            .set('Authorization', `Bearer ${token}`).send()
 
         expect(response.status).toBe(400);
         expect(response.body.error).toBeTruthy();
