@@ -7,6 +7,7 @@ import { IsCustom } from "../../models/enums/IsCustom";
 import { user } from "./user";
 import { auth } from "./auth";
 import { category } from "./category";
+import { launch } from "./launch";
 
 beforeAll(async () => {
     const connection = await createConnection();
@@ -69,3 +70,4 @@ beforeAll(async () => {
 describe("User", user);
 describe("Authentication", auth);
 describe("Category", category);
+describe("Launch", launch);
