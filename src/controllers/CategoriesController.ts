@@ -15,7 +15,7 @@ export class CategoriesController {
             return response.status(201).json({ category: newCategory });
         } catch (error) {
             console.log(error);
-            throw new AppError(error);
+            throw new AppError(error.message, error.statusCode);
         }
     }
     public async delete(request: Request, response: Response) {
@@ -28,7 +28,7 @@ export class CategoriesController {
             return response.status(200).json();
         } catch (error) {
             console.log(error);
-            throw new AppError(error);
+            throw new AppError(error.message, error.statusCode);
         }
     }
 }

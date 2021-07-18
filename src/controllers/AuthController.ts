@@ -10,7 +10,7 @@ export class AuthController {
             return response.json({ token });
         } catch (error) {
             console.log(error);
-            throw new AppError(error, 401);
+            throw new AppError(error.message, 401);
         }
     }
 }

@@ -13,7 +13,7 @@ export class UsersController {
             return response.status(201).json({ user: newUser });
         } catch (error) {
             console.log(error);
-            throw new AppError(error);
+            throw new AppError(error.message, error.statusCode);
         }
     }
 }

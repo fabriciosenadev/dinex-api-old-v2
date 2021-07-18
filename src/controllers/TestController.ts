@@ -22,8 +22,8 @@ class TestController {
             const encryptPass2 = await Cryptography.doEncrypt(pass2);
 
             response.json({ encryptPass1, encryptPass2 });
-        } catch (err) {
-            throw new AppError(err);
+        } catch (error) {
+            throw new AppError(error.message, error.statusCode);
         }
     }
 }

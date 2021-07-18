@@ -30,7 +30,7 @@ export const category = () => {
 
     it("Should be able to create a new category", async () => {
         const response = await request(app).post('/categories/')
-            .set('Authorization', token)
+            .set('Authorization', `Bearer ${token}`)
             .send({
                 category: newCategory
             });

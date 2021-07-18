@@ -20,7 +20,7 @@ export class LaunchesController {
             return response.status(201).json(newLaunch);
         } catch (error) {
             console.log(error);
-            throw new AppError(error);
+            throw new AppError(error.message, error.statusCode);
         }
     }
 
