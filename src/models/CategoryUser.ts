@@ -1,5 +1,4 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
 import { User } from "./User";
 

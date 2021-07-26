@@ -1,6 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Launch } from "./Launch";
-import { User } from "./User";
 
 @Entity("dx_pay_methods_launches")
 export class PayMethodLaunch {
@@ -16,14 +15,6 @@ export class PayMethodLaunch {
 
     @Column()
     launch_id: number;
-
-    // TODO: verify if this column is necessary
-    // @OneToOne(() => User)
-    // @JoinColumn({ name: "user_id" })
-    // user: User;
-
-    // @Column()
-    // user_id: string;
 
     @CreateDateColumn()
     created_on: Date;
